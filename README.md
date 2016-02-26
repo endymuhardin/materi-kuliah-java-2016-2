@@ -1,4 +1,4 @@
-# Materi Kuliah Pemrograman 4 RK #
+# Materi Kuliah Pemrograman 4 Reguler #
 
 ## Penilaian ##
 
