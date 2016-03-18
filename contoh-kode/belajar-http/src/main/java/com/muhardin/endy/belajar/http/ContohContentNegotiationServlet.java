@@ -10,9 +10,11 @@ import java.io.PrintWriter;
 import javax.servlet.annotation.WebServlet;
 
 import java.util.*;
+import com.fasterxml.jackson.databind.*;
 
 @WebServlet("/data")
 public class ContohContentNegotiationServlet extends HttpServlet {
+	private ObjectMapper mapper = new ObjectMapper();
 	private List<Mahasiswa> data = new ArrayList<>();
 
 	public ContohContentNegotiationServlet(){
@@ -61,6 +63,14 @@ public class ContohContentNegotiationServlet extends HttpServlet {
 			res.getWriter().println(konversiDataKeCsv());
 			return;
 		}
+
+		if(contentType.contains("application/json")){
+			res.setContentType("application/json");
+			res.getWriter().println(konversiDataKeJson());
+			return;
+		}
+
+		res.sendError(406, "Content Type yang disediakan hanya html, csv, dan json");
 	}
 
 	private String konversiDataKeCsv(){
@@ -72,5 +82,16 @@ public class ContohContentNegotiationServlet extends HttpServlet {
 		}
 
 		return hasil.toString();
+	}
+
+	private String konversiDataKeJson(){
+		try {
+		return mapper.writer()
+			.with(SerializationFeature.INDENT_OUTPUT)
+			.writeValueAsString(data);
+		} catch (Exception err){
+			err.printStackTrace();
+			return "Error";
+		}
 	}
 }
