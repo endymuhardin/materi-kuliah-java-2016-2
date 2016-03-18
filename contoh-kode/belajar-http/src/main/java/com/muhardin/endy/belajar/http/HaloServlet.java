@@ -18,6 +18,21 @@ public class HaloServlet extends HttpServlet{
 		String email = req.getParameter("email");
 
 		res.setContentType("text/html");
+
+		if(nama == null || nama.isEmpty()){
+			res.sendError(400, "Nama harus diisi");
+			return;
+		}
+
+		if(email == null || email.isEmpty()){
+			res.sendError(400, "Email harus diisi");
+			return;
+		}
+
+		if(!"endy".equalsIgnoreCase(nama)){
+			res.sendError(404, "Data dengan nama "+nama+" tidak ditemukan");
+			return;
+		}
 		
 		PrintWriter output = res.getWriter();
 		output.println("<html>");
