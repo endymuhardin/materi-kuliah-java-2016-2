@@ -29,6 +29,10 @@ public class HaloServlet extends HttpServlet{
 			return;
 		}
 
+		if("redirect".equalsIgnoreCase(nama)){
+			res.sendRedirect("http://google.com");
+		}
+
 		if(!"endy".equalsIgnoreCase(nama)){
 			res.sendError(404, "Data dengan nama "+nama+" tidak ditemukan");
 			return;
