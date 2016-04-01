@@ -10,15 +10,23 @@ import java.io.PrintWriter;
 public class ScopeDemoServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		
-		String nama = (String) req.getSession()
+		String nama = (String) getServletContext()
 		                .getAttribute("nama");
 
 		if(nama == null){
 			nama = req.getParameter("nama");
-			req.getSession().setAttribute("nama", nama);
+			getServletContext().setAttribute("nama", nama);
 		}
 
-		String email = req.getParameter("email");
+		String email = (String) req.getSession()
+		                .getAttribute("email");
+
+		if(email == null){
+			email = req.getParameter("email");
+			req.getSession().setAttribute("email", email);
+		}
+
+		String hp = req.getParameter("hp");
 
 		res.setContentType("text/html");
 		PrintWriter output = res.getWriter();
@@ -29,6 +37,7 @@ public class ScopeDemoServlet extends HttpServlet {
 		output.println("<h1>Demo Scope Variabel HTTP</h1>");
 		output.println("<h2>Nama : "+nama+"</h2>");
 		output.println("<h2>Email : "+email+"</h2>");
+		output.println("<h2>HP : "+hp+"</h2>");
 		output.println("<a href=\"/scopedemo\">Reload</a>");
 		
 		output.println("</body>");
