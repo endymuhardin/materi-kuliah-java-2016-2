@@ -10,6 +10,9 @@ import java.io.PrintWriter;
 public class ScopeDemoServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		
+		String aplikasi = (String) getServletContext()
+		                .getAttribute("aplikasi");
+
 		String nama = (String) getServletContext()
 		                .getAttribute("nama");
 
@@ -34,7 +37,7 @@ public class ScopeDemoServlet extends HttpServlet {
 		output.println("<html>");
 		output.println("<head><title>Demo Scope HTTP</title></head>");
 		output.println("<body>");
-		output.println("<h1>Demo Scope Variabel HTTP</h1>");
+		output.println("<h1>"+aplikasi+"</h1>");
 		output.println("<h2>Nama : "+nama+"</h2>");
 		output.println("<h2>Email : "+email+"</h2>");
 		output.println("<h2>HP : "+hp+"</h2>");
